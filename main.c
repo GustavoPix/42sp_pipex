@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/09 20:18:59 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/11 20:17:32 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include "./libft/libft.h"
 
 #define BUFFER 256
 
-int main(void)
+int pids(void)
 {
-    int fd[2];
+    int fd[3][2];
+    int i;
 
-    if (pipe(fd) == -1)
+    i = 0;
+    while (i < 3)
     {
-        return (1);
+        if (pipe(fd[i]) < 0)
+            return (0);
+        i++;
     }
 
     int pid1 = fork();
     if (pid1 < 0)
-    {
-        return (2);
-    }
+        return (0);
 
     if (pid1 == 0)
     {
@@ -44,34 +47,83 @@ int main(void)
         close(fdFile);
 
         // Child process 1 (ping)
-        dup2(fd[1], STDOUT_FILENO);
+        dup2(fd[1][1], STDOUT_FILENO);
 
-        close(fd[0]);
-        close(fd[1]);
+        close(fd[0][1]);
+        close(fd[2][0]);
+        close(fd[1][0]);
+        close(fd[2][1]);
         //execlp("ping", "ping", "-c", "5", "google.com", NULL);
-        execlp("grep", "grep", "abc", NULL);
+
+        execlp("grep", "grep", "que", NULL);
     }
 
     int pid2 = fork();
     if (pid2 < 0)
-    {
-        return (3);
-    }
+        return (0);
     if (pid2 == 0)
     {
             //Child process 2 (grep)
-            dup2(fd[0], STDIN_FILENO);
-            close(fd[0]);
-            close(fd[1]);
+
+            int fdFile;
+
+            fdFile = open("./test/outfile", O_WRONLY);
+
+            dup2(fd[1][0], STDIN_FILENO);
+            dup2(fd[2][1], STDOUT_FILENO);
+            close(fd[0][0]);
+            close(fd[1][1]);
+            close(fd[2][0]);
+            close(fd[0][1]);
             //execlp("grep", "grep", "rtt", NULL);
             execlp("wc", "wc", "-w", NULL);
+
     }
 
-    close(fd[0]);
-    close(fd[1]);
+    int pid3 = fork();
+    if (pid3 < 0)
+        return (0);
+    if (pid3 == 0)
+    {
+            //Child process 2 (grep)
+
+            int fdFile;
+            char *aux;
+
+            dup2(fd[2][0], STDIN_FILENO);
+
+            close(fd[1][0]);
+            close(fd[2][1]);
+            close(fd[0][0]);
+            close(fd[1][1]);
+
+
+            fdFile = open("./test/outfile", O_WRONLY);
+            ft_strlen(aux);
+            aux = ft_calloc(2, sizeof(char));
+            read(STDIN_FILENO,&aux,1);
+            printf("%s",aux);
+
+            //execlp("grep", "grep", "rtt", NULL);
+            write(fdFile,&aux,1);
+            close(fdFile);
+    }
+
+    close(fd[0][0]);
+    close(fd[0][1]);
+    close(fd[1][0]);
+    close(fd[1][1]);
+    close(fd[2][0]);
+    close(fd[2][1]);
     waitpid(pid1, NULL, 0);
     waitpid(pid2, NULL, 0);
+    waitpid(pid3, NULL, 0);
+    return (0);
+}
 
+int main(void)
+{
+    pids();
     return (0);
 }
 
