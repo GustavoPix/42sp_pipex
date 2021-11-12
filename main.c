@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/11 20:17:32 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/11 21:08:57 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #define BUFFER 256
 
-int pids(void)
+int test(void)
 {
     int fd[3][2];
     int i;
@@ -39,7 +39,7 @@ int pids(void)
 
     if (pid1 == 0)
     {
-
+        printf("Pid1\n");
         int fdFile;
 
         fdFile = open("./test/start_file", O_RDONLY);
@@ -55,7 +55,7 @@ int pids(void)
         close(fd[2][1]);
         //execlp("ping", "ping", "-c", "5", "google.com", NULL);
 
-        execlp("grep", "grep", "que", NULL);
+        execlp("grep", "grep", "abc", NULL);
     }
 
     int pid2 = fork();
@@ -64,7 +64,7 @@ int pids(void)
     if (pid2 == 0)
     {
             //Child process 2 (grep)
-
+            printf("Pid2\n");
             int fdFile;
 
             fdFile = open("./test/outfile", O_WRONLY);
@@ -86,7 +86,7 @@ int pids(void)
     if (pid3 == 0)
     {
             //Child process 2 (grep)
-
+            printf("Pid3\n");
             int fdFile;
             char *aux;
 
@@ -99,14 +99,11 @@ int pids(void)
 
 
             fdFile = open("./test/outfile", O_WRONLY);
-            ft_strlen(aux);
-            aux = ft_calloc(2, sizeof(char));
-            read(STDIN_FILENO,&aux,1);
-            printf("%s",aux);
-
-            //execlp("grep", "grep", "rtt", NULL);
+            read(STDIN_FILENO,&aux,sizeof(char *));
+            //ft_putstr_fd(aux,fdFile);
+            //write(1,&aux,1);
             write(fdFile,&aux,1);
-            close(fdFile);
+            //close(fdFile);
     }
 
     close(fd[0][0]);
@@ -123,7 +120,8 @@ int pids(void)
 
 int main(void)
 {
-    pids();
+    test();
     return (0);
+
 }
 
