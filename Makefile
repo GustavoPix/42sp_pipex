@@ -6,11 +6,12 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/11/09 21:03:03 by glima-de         ###   ########.fr        #
+#    Updated: 2021/11/21 12:35:36 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_MANDATORY = ./main.c \
+				 ./src/pipes.c
 
 OBJS 		= ${SRCS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
@@ -66,6 +67,7 @@ all: 		${NAME}
 			${CC} -g ${CFLAGS} -Imlx -Ibass -c $< -o ${<:.c=.o}
 
 $(NAME): 	${OBJS_LIBFT} $(OBJS) ${OBJS_M}
+			echo x > ./test/outfile
 			make -C $(PATH_LIBFT)
 			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_LIBFT}
 

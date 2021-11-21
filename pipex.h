@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/23 20:10:28 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/12 12:56:38 by glima-de         ###   ########.fr       */
+/*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
+/*   Updated: 2021/11/21 12:00:37 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
+#ifndef PIPEX_H
+# define PIPEX_H
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <unistd.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include "./libft/libft.h"
 
-char	*ft_strdup(const char *s)
-{
-	char	*aux;
-	size_t	i;
+void pipe_start(char *file_read, int **fd);
 
-	i = 0;
-	while (s[i])
-		i++;
-	aux = malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (s[i])
-	{
-		aux[i] = s[i];
-		i++;
-	}
-	aux[i] = '\0';
-	return (aux);
-}
+#endif
