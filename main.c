@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/21 16:30:42 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:19:50 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,21 @@ int test(t_data *data)
     if (pid2 == 0)
     {
             //Child process 2 (grep)
-            //pipe_middle(data,1);
-            printf("Pid2\n");
-
-            //fdFile = open("./test/outfile", O_WRONLY);
-
-            dup2(data->fd[1][0], STDIN_FILENO);
-            dup2(data->fd[2][1], STDOUT_FILENO);
-            close(data->fd[0][0]);
-            close(data->fd[1][1]);
-            close(data->fd[2][0]);
-            close(data->fd[0][1]);
-
-            //read(STDIN_FILENO,&aux,10);
-            //execlp("grep", "grep", "rtt", NULL);
-            execlp("wc", "wc", "-w", NULL);
+            pipe_middle(data,1);
+            //printf("Pid2\n");
+//
+            ////fdFile = open("./test/outfile", O_WRONLY);
+//
+            //dup2(data->fd[1][0], STDIN_FILENO);
+            //dup2(data->fd[2][1], STDOUT_FILENO);
+            //close(data->fd[0][0]);
+            //close(data->fd[1][1]);
+            //close(data->fd[2][0]);
+            //close(data->fd[0][1]);
+//
+            ////read(STDIN_FILENO,&aux,10);
+            ////execlp("grep", "grep", "rtt", NULL);
+            //execlp("wc", "wc", "-w", NULL);
 
     }
 
@@ -121,15 +121,17 @@ int main(void)
     t_data data;
     data.file_open = "./test/start_file";
     data.cmds = malloc(sizeof(t_commands) * 2);
+
     data.cmds[0].command = "grep";
-    data.cmds[0].parans = malloc(3 * sizeof(char *));
+    data.cmds[0].parans = malloc(2 * sizeof(char *));
     data.cmds[0].parans[0] = data.file_open;
     data.cmds[0].parans[1] = "abc";
     data.cmds[0].parans[2] = NULL;
-    //data.cmds[1].command = "wc";
-    //data.cmds[1].parans = malloc(2 * sizeof(char *));
-    //data.cmds[1].parans[0] = "-w";
-    //data.cmds[1].parans[1] = NULL;
+
+    data.cmds[1].command = "wc";
+    data.cmds[1].parans = malloc(3 * sizeof(char *));
+    data.cmds[1].parans[1] = "-w";
+    data.cmds[1].parans[2] = NULL;
     test(&data);
     return (0);
 
