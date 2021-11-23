@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/23 18:49:55 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/23 19:26:55 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,26 @@ int test(t_data *data)
     waitpid(pid3, NULL, 0);
     return (0);
 }
+void set_params(t_data *data, char *argv, int index)
+{
+    char    **aux;
+    int     args;
+
+    args = 0;
+    aux = ft_split(argv, ' ');
+    while (aux[args])
+        args++;
+    data->cmds[index].command = ft_strjoin("/usr/bin/",aux[0]);
+    data->cmds[index].parans = malloc((args + 1) * sizeof(char *));
+    args = 1;
+    while (aux[args])
+    {
+        data->cmds[index].parans[args] = aux[args];
+        args++;
+    }
+    data->cmds[index].parans[args] = NULL;
+    data->cmds[index].parans[0] = "";
+}
 
 int main(int argc, char **argv)
 {
@@ -125,25 +145,29 @@ int main(int argc, char **argv)
         printf("Pipex works using: pipex file_in cmd cmd file_out\n");
         return(0);
     }
+    //char **first;
+    data.cmds = malloc(sizeof(t_commands) * 2);
+    set_params(&data,argv[2],0);
+    set_params(&data,argv[3],1);
 
+    //first = ft_split(argv[2],' ');
 
     data.file_open = argv[1];
     data.file_exit = argv[4];
-    data.cmds = malloc(sizeof(t_commands) * 2);
     data.qpipes = 3;
 
     //data.cmds[0].command = "/usr/bin/grep";
-    data.cmds[0].command = ft_strjoin("/usr/bin/",argv[2]);
-    data.cmds[0].parans = malloc(2 * sizeof(char *));
-    data.cmds[0].parans[0] = data.file_open;
-    data.cmds[0].parans[1] = "abc";
-    data.cmds[0].parans[2] = NULL;
+    //data.cmds[0].command = ft_strjoin("/usr/bin/",first[0]);
+    //data.cmds[0].parans = malloc(2 * sizeof(char *));
+    //data.cmds[0].parans[0] = data.file_open;
+    //data.cmds[0].parans[1] = first[1];
+    //data.cmds[0].parans[2] = NULL;
 
     //data.cmds[1].command = "/usr/bin/wc";
-    data.cmds[1].command = ft_strjoin("/usr/bin/",argv[3]);
-    data.cmds[1].parans = malloc(3 * sizeof(char *));
-    data.cmds[1].parans[1] = "-w";
-    data.cmds[1].parans[2] = NULL;
+    //data.cmds[1].command = ft_strjoin("/usr/bin/",argv[3]);
+    //data.cmds[1].parans = malloc(3 * sizeof(char *));
+    //data.cmds[1].parans[1] = "-w";
+    //data.cmds[1].parans[2] = NULL;
     test(&data);
     return (0);
 
