@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/23 18:29:36 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:49:55 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,21 +117,30 @@ int test(t_data *data)
     return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_data data;
-    data.file_open = "./test/start_file";
-    data.file_exit = "./test/outfile";
+    if (argc != 5)
+    {
+        printf("Pipex works using: pipex file_in cmd cmd file_out\n");
+        return(0);
+    }
+
+
+    data.file_open = argv[1];
+    data.file_exit = argv[4];
     data.cmds = malloc(sizeof(t_commands) * 2);
     data.qpipes = 3;
 
-    data.cmds[0].command = "grep";
+    //data.cmds[0].command = "/usr/bin/grep";
+    data.cmds[0].command = ft_strjoin("/usr/bin/",argv[2]);
     data.cmds[0].parans = malloc(2 * sizeof(char *));
     data.cmds[0].parans[0] = data.file_open;
     data.cmds[0].parans[1] = "abc";
     data.cmds[0].parans[2] = NULL;
 
-    data.cmds[1].command = "wc";
+    //data.cmds[1].command = "/usr/bin/wc";
+    data.cmds[1].command = ft_strjoin("/usr/bin/",argv[3]);
     data.cmds[1].parans = malloc(3 * sizeof(char *));
     data.cmds[1].parans[1] = "-w";
     data.cmds[1].parans[2] = NULL;
