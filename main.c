@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/22 20:19:50 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:29:36 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,22 @@ int test(t_data *data)
     if (pid3 == 0)
     {
             //Child process 2 (grep)
-            printf("Pid3\n");
-            int fdFile;
-            char *aux;
-            aux = ft_calloc(2, sizeof(char));
-
-            dup2(data->fd[2][0], STDIN_FILENO);
-
-            close(data->fd[1][0]);
-            close(data->fd[2][1]);
-            close(data->fd[0][0]);
-            close(data->fd[1][1]);
-
-            fdFile = open("./test/outfile", O_WRONLY);
-            read(STDIN_FILENO,&aux,2);
-            write(fdFile,&aux,2);
+            //printf("Pid3\n");
+            pipe_end(data);
+            //int fdFile;
+            //char *aux;
+            //aux = ft_calloc(2, sizeof(char));
+//
+            //dup2(data->fd[2][0], STDIN_FILENO);
+//
+            //close(data->fd[1][0]);
+            //close(data->fd[2][1]);
+            //close(data->fd[0][0]);
+            //close(data->fd[1][1]);
+//
+            //fdFile = open("./test/outfile", O_WRONLY);
+            //read(STDIN_FILENO,&aux,2);
+            //write(fdFile,&aux,2);
     }
 
     close(data->fd[0][0]);
@@ -120,7 +121,9 @@ int main(void)
 {
     t_data data;
     data.file_open = "./test/start_file";
+    data.file_exit = "./test/outfile";
     data.cmds = malloc(sizeof(t_commands) * 2);
+    data.qpipes = 3;
 
     data.cmds[0].command = "grep";
     data.cmds[0].parans = malloc(2 * sizeof(char *));

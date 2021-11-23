@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/21 14:44:50 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:29:24 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct  s_data
     char        *file_open;
     char        *file_exit;
     int         **fd;
+    int         qpipes;
     t_commands  *cmds;
 }               t_data;
 
@@ -45,5 +46,6 @@ typedef struct  s_data
 /*==========*/
 void pipe_start(t_data *data);
 void pipe_middle(t_data *data, int i);
+void pipe_end(t_data *data);
 
 #endif
