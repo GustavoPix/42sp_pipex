@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/25 19:37:07 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/25 20:07:17 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void pipe_end(t_data *data);
 void close_fds(t_data *data, int max);
 
 /*=============*/
-/*  readfile   */
+/*  clear      */
 /*=============*/
-char *get_text(int fd);
+void clear_data(t_data *data);
 
 #endif
