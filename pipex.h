@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/23 18:29:24 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/24 20:15:43 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 
-/*==========*/
-/*  structs */
-/*==========*/
+/*=============*/
+/*  structs    */
+/*=============*/
 typedef struct  s_commands
 {
     char    *command;
@@ -41,11 +41,16 @@ typedef struct  s_data
 
 
 
-/*==========*/
-/*  pipes   */
-/*==========*/
+/*=============*/
+/*  pipes      */
+/*=============*/
 void pipe_start(t_data *data);
 void pipe_middle(t_data *data, int i);
 void pipe_end(t_data *data);
+
+/*=============*/
+/*  readfile   */
+/*=============*/
+char *get_text(int fd);
 
 #endif
