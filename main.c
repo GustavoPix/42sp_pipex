@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/25 18:45:22 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/25 19:48:55 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int main(int argc, char **argv)
     if (argc != 5)
     {
         printf("Pipex works using: pipex file_in cmd cmd file_out\n");
-        //return(0);
+        return(0);
     }
     data.qpipes = argc - 3;
     data.cmds = malloc(data.qpipes * sizeof(t_commands));
