@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/24 22:24:01 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/25 18:45:22 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,24 @@ int test(t_data *data)
         if (data->pid[i] == 0)
         {
             if (i == 0)
+            {
+                printf("pipe start\n");
                 pipe_start(data);
-            else if (i < data->qpipes)
+            }
+            else if (i < data->qpipes - 1)
+            {
+                printf("pipe middle\n");
                 pipe_middle(data, i);
+            }
             else
+            {
+                printf("pipe end\n");
                 pipe_end(data);
+            }
         }
         i++;
     }
-
+    i = 0;
     //data->pid[0] = fork();
     //if (data->pid[0] < 0)
     //    return (0);
@@ -88,14 +97,26 @@ int test(t_data *data)
     //        //write(fdFile,&aux,2);
     //}
 
-    close(data->fd[0][0]);
-    close(data->fd[0][1]);
-    close(data->fd[1][0]);
-    close(data->fd[1][1]);
+    while (i < data->qpipes)
+    {
+        close(data->fd[i][0]);
+        close(data->fd[i][1]);
+        i++;
+    }
+    i = 0;
+    while (i < data->qpipes)
+    {
+       waitpid(data->pid[i], NULL, 0);
+       i++;
+    }
+
+    //close(data->fd[0][1]);
+    //close(data->fd[1][0]);
+    //close(data->fd[1][1]);
     //close(data->fd[2][0]);
     //close(data->fd[2][1]);
-    waitpid(data->pid[0], NULL, 0);
-    waitpid(data->pid[1], NULL, 0);
+    //waitpid(data->pid[0], NULL, 0);
+    //waitpid(data->pid[1], NULL, 0);
     //waitpid(pid3, NULL, 0);
     return (0);
 }
@@ -123,18 +144,25 @@ void set_params(t_data *data, char *argv, int index)
 int main(int argc, char **argv)
 {
     t_data data;
+    int     i;
+
+    i = 0;
 
     if (argc != 5)
     {
         printf("Pipex works using: pipex file_in cmd cmd file_out\n");
-        return(0);
+        //return(0);
     }
-    data.cmds = malloc(sizeof(t_commands) * 2);
-    set_params(&data,argv[2],0);
-    set_params(&data,argv[3],1);
-    data.file_open = argv[1];
-    data.file_exit = argv[4];
     data.qpipes = argc - 3;
+    data.cmds = malloc(data.qpipes * sizeof(t_commands));
+    while (i < data.qpipes)
+    {
+        set_params(&data,argv[i + 2],i);
+        i++;
+    }
+    //set_params(&data,argv[3],1);
+    data.file_open = argv[1];
+    data.file_exit = argv[argc - 1];
     data.pid = malloc(data.qpipes * sizeof(int));
     test(&data);
     return (0);
