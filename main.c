@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/24 22:11:15 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:24:01 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,47 @@ int test(t_data *data)
 
 
     i = 0;
-    data->fd = malloc(sizeof(int) * 2);
-    while (i < 2)
+    data->fd = malloc(sizeof(int) * data->qpipes);
+    while (i < data->qpipes)
     {
         data->fd[i] = malloc(sizeof(int) * 2);
         if (pipe(data->fd[i]) < 0)
             return (0);
         i++;
     }
-
-    data->pid[0] = fork();
-    if (data->pid[0] < 0)
-        return (0);
-    if (data->pid[0] == 0)
+    i = 0;
+    while (i < data->qpipes)
     {
-        pipe_start(data);
+        data->pid[i] = fork();
+        if (data->pid[i] < 0)
+            return (0);
+        if (data->pid[i] == 0)
+        {
+            if (i == 0)
+                pipe_start(data);
+            else if (i < data->qpipes)
+                pipe_middle(data, i);
+            else
+                pipe_end(data);
+        }
+        i++;
     }
 
-    data->pid[1] = fork();
-    if (data->pid[1] < 0)
-        return (0);
-    if (data->pid[1] == 0)
-    {
-            pipe_middle(data,1);
-    }
+    //data->pid[0] = fork();
+    //if (data->pid[0] < 0)
+    //    return (0);
+    //if (data->pid[0] == 0)
+    //{
+    //    pipe_start(data);
+    //}
+//
+    //data->pid[1] = fork();
+    //if (data->pid[1] < 0)
+    //    return (0);
+    //if (data->pid[1] == 0)
+    //{
+    //        pipe_middle(data,1);
+    //}
 
 
 
