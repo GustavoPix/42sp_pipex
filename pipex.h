@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/24 20:15:43 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:07:47 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct  s_data
     char        *file_exit;
     int         **fd;
     int         qpipes;
+    int         *pid;
     t_commands  *cmds;
 }               t_data;
 

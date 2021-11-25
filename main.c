@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/24 21:47:39 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:11:15 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,54 +27,20 @@ int test(t_data *data)
         i++;
     }
 
-    int pid1 = fork();
-    if (pid1 < 0)
+    data->pid[0] = fork();
+    if (data->pid[0] < 0)
         return (0);
-
-    if (pid1 == 0)
+    if (data->pid[0] == 0)
     {
         pipe_start(data);
-        //printf("Pid1\n");
-        //int fdFile;
-//
-        //fdFile = open("./test/start_file", O_RDONLY);
-        //dup2(fdFile, STDIN_FILENO);
-        //close(fdFile);
-//
-        //// Child process 1 (ping)
-        //dup2(fd[1][1], STDOUT_FILENO);
-//
-        //close(fd[0][1]);
-        //close(fd[2][0]);
-        //close(fd[1][0]);
-        //close(fd[2][1]);
-        ////execlp("ping", "ping", "-c", "5", "google.com", NULL);
-//
-        //execlp("grep", "grep", "abc", NULL);
     }
 
-    int pid2 = fork();
-    if (pid2 < 0)
+    data->pid[1] = fork();
+    if (data->pid[1] < 0)
         return (0);
-    if (pid2 == 0)
+    if (data->pid[1] == 0)
     {
-            //Child process 2 (grep)
             pipe_middle(data,1);
-            //printf("Pid2\n");
-//
-            ////fdFile = open("./test/outfile", O_WRONLY);
-//
-            //dup2(data->fd[1][0], STDIN_FILENO);
-            //dup2(data->fd[2][1], STDOUT_FILENO);
-            //close(data->fd[0][0]);
-            //close(data->fd[1][1]);
-            //close(data->fd[2][0]);
-            //close(data->fd[0][1]);
-//
-            ////read(STDIN_FILENO,&aux,10);
-            ////execlp("grep", "grep", "rtt", NULL);
-            //execlp("wc", "wc", "-w", NULL);
-
     }
 
 
@@ -111,8 +77,8 @@ int test(t_data *data)
     close(data->fd[1][1]);
     //close(data->fd[2][0]);
     //close(data->fd[2][1]);
-    waitpid(pid1, NULL, 0);
-    waitpid(pid2, NULL, 0);
+    waitpid(data->pid[0], NULL, 0);
+    waitpid(data->pid[1], NULL, 0);
     //waitpid(pid3, NULL, 0);
     return (0);
 }
@@ -151,7 +117,8 @@ int main(int argc, char **argv)
     set_params(&data,argv[3],1);
     data.file_open = argv[1];
     data.file_exit = argv[4];
-    data.qpipes = 2;
+    data.qpipes = argc - 3;
+    data.pid = malloc(data.qpipes * sizeof(int));
     test(&data);
     return (0);
 }

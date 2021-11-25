@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/24 21:45:04 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:13:27 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void pipe_middle(t_data *data, int i)
     close(data->fd[i - 1][0]);
     close(data->fd[i - 1][1]);
     close(data->fd[i][1]);
-    //close(fdFile);
+    close(fdFile);
     //close(data->fd[2][0]);
     //close(data->fd[0][1]);
     //close(data->fd[0][0]);
