@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/25 20:32:32 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/25 21:15:52 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,14 @@ void set_params(t_data *data, char *argv, int index)
     args = 1;
     while (aux[args])
     {
-        data->cmds[index].parans[args] = aux[args];
+        data->cmds[index].parans[args] = ft_strdup(aux[args]);
+        //free(aux[args]);
         args++;
     }
     data->cmds[index].parans[args] = NULL;
     data->cmds[index].parans[0] = "";
+    //free(aux);
+    //free(argv);
 }
 
 int main(int argc, char **argv)
