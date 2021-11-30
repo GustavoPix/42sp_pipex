@@ -6,13 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 18:44:50 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:19:03 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./pipex.h"
 
-int	test(t_data *data)
+int	create_pipes(t_data *data)
 {
 	int	i;
 
@@ -25,7 +25,28 @@ int	test(t_data *data)
 			return (0);
 		i++;
 	}
+	return (1);
+}
+
+void	close_pipes(t_data *data)
+{
+	int	i;
+
 	i = 0;
+	close_fds(data, data->qpipes - 1);
+	while (i < data->qpipes)
+	{
+		waitpid(data->pid[i], NULL, 0);
+		i++;
+	}
+}
+
+int	control(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	create_pipes(data);
 	while (i < data->qpipes)
 	{
 		data->pid[i] = fork();
@@ -34,30 +55,15 @@ int	test(t_data *data)
 		if (data->pid[i] == 0)
 		{
 			if (i == 0)
-			{
-				printf("pipe start\n");
 				pipe_start(data);
-			}
 			else if (i < data->qpipes - 1)
-			{
-				printf("pipe middle\n");
 				pipe_middle(data, i);
-			}
 			else
-			{
-				printf("pipe end\n");
 				pipe_end(data);
-			}
 		}
 		i++;
 	}
-	i = 0;
-	close_fds(data, data->qpipes - 1);
-	while (i < data->qpipes)
-	{
-		waitpid(data->pid[i], NULL, 0);
-		i++;
-	}
+	close_pipes(data);
 	clear_data(data);
 	return (0);
 }
@@ -107,6 +113,6 @@ int	main(int argc, char **argv)
 	data.file_open = argv[1];
 	data.file_exit = argv[argc - 1];
 	data.pid = (int *)malloc(data.qpipes * sizeof(int));
-	test(&data);
+	control(&data);
 	return (0);
 }
