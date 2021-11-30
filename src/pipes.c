@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 19:40:45 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 20:00:13 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	pipe_start(t_data *data)
 	close(data->fd[0][1]);
 	close(data->fd[data->qpipes - 1][0]);
 	if (execve(data->cmds[0].command, data->cmds[0].parans, envvec) == -1)
-		perror("Grep error");
+		perror("Pipe start error");
 }
 
 void	pipe_middle(t_data *data, int i)
@@ -38,7 +38,7 @@ void	pipe_middle(t_data *data, int i)
 	close_fds(data, i);
 	data->cmds[i].parans[0] = "";
 	if (execve(data->cmds[i].command, data->cmds[i].parans, envvec) == -1)
-		perror("WC error");
+		perror("Pipe middle error");
 }
 
 void	pipe_end(t_data *data)
@@ -56,7 +56,7 @@ void	pipe_end(t_data *data)
 	close(fdfile);
 	data->cmds[data->qpipes - 1].parans[0] = "";
 	if (execve(data->cmds[pipe].command, data->cmds[pipe].parans, envvec) == -1)
-		perror("WC error");
+		perror("Pipe end error");
 }
 
 void	close_fds(t_data *data, int max)

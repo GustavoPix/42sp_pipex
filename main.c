@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 19:53:10 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 20:14:09 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,13 @@ int	main(int argc, char **argv)
 			set_params(&data, argv[i + 2], i);
 			i++;
 		}
-		data.file_open = argv[1];
-		data.file_exit = argv[argc - 1];
-		data.pid = (int *)malloc(data.qpipes * sizeof(int));
-		control(&data);
+		if (check_valid_cmds(&data))
+		{
+			data.file_open = argv[1];
+			data.file_exit = argv[argc - 1];
+			data.pid = (int *)malloc(data.qpipes * sizeof(int));
+			control(&data);
+		}
 	}
 	return (0);
 }
