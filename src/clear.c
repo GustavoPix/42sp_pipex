@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 20:00:38 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/25 21:18:18 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:34:26 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ void clear_data(t_data *data)
         j = 0;
         while (data->cmds[i].parans[j])
         {
-            //if(data->cmds[i].parans[j])
-            //    free(data->cmds[i].parans[j]);
-            //free(data->fd[j]);
+            if (j > 0)
+                free(data->cmds[i].parans[1]);
             j++;
         }
-        //free(data->cmds[i].parans);
+        free(data->cmds[i].parans);
+        free(data->cmds[i].command);
         free(data->fd[i]);
         data->pid[i] = 0;
         i++;
     }
+    free(data->cmds);
     free(data->fd);
     free(data->pid);
 }

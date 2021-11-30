@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/11/25 20:00:57 by glima-de         ###   ########.fr        #
+#    Updated: 2021/11/29 18:27:14 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJS_GNL	= ${GNL:.c=.o}
 UNAME		:= $(shell uname)
 
 PATH_LIBFT	= libft
-CC 			= clang
+CC 			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -f
 NAME		= pipex
@@ -45,8 +45,7 @@ clean:
 			${RM} ${OBJS} ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} ${OBJS_GNL}
 
 fclean: 	clean
-			make -C $(PATH_LIBFT) clean
-			rm -rf mlx
+			make -C $(PATH_LIBFT) fclean
 			${RM} ${NAME}
 
 re: 		fclean all
