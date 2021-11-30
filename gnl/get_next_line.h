@@ -6,10 +6,9 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 19:57:59 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/23 19:58:00 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 18:48:33 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
