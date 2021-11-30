@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 18:48:07 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:55:28 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,10 @@ void	close_fds(t_data *data, int max);
 /*  clear      */
 /*=============*/
 void	clear_data(t_data *data);
+
+/*=============*/
+/*  checkers   */
+/*=============*/
+int		check_parans(int argc, char **argv);
 
 #endif

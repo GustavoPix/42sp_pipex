@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 19:19:03 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:53:10 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,19 @@ int	main(int argc, char **argv)
 	int		i;
 
 	i = 0;
-	if (argc != 5)
+	if (check_parans(argc, argv) == 1)
 	{
-		printf("Pipex works using: pipex file_in cmd cmd file_out\n");
-		return (0);
+		data.qpipes = argc - 3;
+		data.cmds = malloc(data.qpipes * sizeof(t_commands));
+		while (i < data.qpipes)
+		{
+			set_params(&data, argv[i + 2], i);
+			i++;
+		}
+		data.file_open = argv[1];
+		data.file_exit = argv[argc - 1];
+		data.pid = (int *)malloc(data.qpipes * sizeof(int));
+		control(&data);
 	}
-	data.qpipes = argc - 3;
-	data.cmds = malloc(data.qpipes * sizeof(t_commands));
-	while (i < data.qpipes)
-	{
-		set_params(&data, argv[i + 2], i);
-		i++;
-	}
-	data.file_open = argv[1];
-	data.file_exit = argv[argc - 1];
-	data.pid = (int *)malloc(data.qpipes * sizeof(int));
-	control(&data);
 	return (0);
 }

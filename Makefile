@@ -6,13 +6,14 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/11/29 18:27:14 by glima-de         ###   ########.fr        #
+#    Updated: 2021/11/30 19:50:58 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_MANDATORY = ./main.c \
 				 ./src/pipes.c \
-				 ./src/clear.c
+				 ./src/clear.c \
+				 ./src/checkers.c
 
 GNL = 			 ./gnl/get_next_line.c
 
