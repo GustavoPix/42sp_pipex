@@ -6,13 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 20:22:09 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 20:51:58 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int check_valid_cmds(t_data *data)
+int	check_valid_cmds(t_data *data)
 {
 	int	i;
 	int	ok;
