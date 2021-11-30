@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 18:58:26 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:32:54 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	pipe_end(t_data *data)
 
 	pipe = data->qpipes - 1;
 	envvec[0] = NULL;
-	fdfile = open(data->file_exit, O_WRONLY);
+	fdfile = open(data->file_exit, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	dup2(data->fd[data->qpipes - 1][0], STDIN_FILENO);
 	dup2(fdfile, STDOUT_FILENO);
 	close_fds(data, data->qpipes - 1);
