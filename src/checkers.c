@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 20:51:58 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:42:41 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int	check_parans(int argc, char **argv)
 	if (access(argv[1], R_OK) < 0)
 	{
 		printf("Failed to read file\n");
+		return (0);
+	}
+	if (access(argv[argc - 1], W_OK) < 0 && access(argv[argc - 1], F_OK) == 0)
+	{
+		printf("Failed to write file\n");
 		return (0);
 	}
 	return (1);

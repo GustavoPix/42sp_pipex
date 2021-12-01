@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 20:14:09 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/01 19:19:54 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	set_params(t_data *data, char *argv, int index)
 
 int	main(int argc, char **argv)
 {
+	//, char **envp
 	t_data	data;
 	int		i;
 
