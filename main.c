@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/01 19:19:54 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:57:44 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	set_params(t_data *data, char *argv, int index)
 	aux = ft_split(argv, ' ');
 	while (aux[args])
 		args++;
-	data->cmds[index].command = ft_strjoin("/usr/bin/", aux[0]);
+	data->cmds[index].command = ft_strjoin("/",aux[0]);
 	data->cmds[index].parans = malloc((args + 1) * sizeof(char *));
 	args = 1;
 	while (aux[args])
@@ -92,9 +92,26 @@ void	set_params(t_data *data, char *argv, int index)
 	free(aux);
 }
 
-int	main(int argc, char **argv)
+int	get_path(t_data	*data, char **envp)
 {
-	//, char **envp
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if(ft_strncmp(envp[i],"PATH=",5) == 0)
+		{
+			data->path = ft_split(&envp[i][5],':');
+			return (1);
+		}
+		i++;
+	}
+	printf("PATH not found\n");
+	return (0);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
 	t_data	data;
 	int		i;
 
@@ -108,7 +125,7 @@ int	main(int argc, char **argv)
 			set_params(&data, argv[i + 2], i);
 			i++;
 		}
-		if (check_valid_cmds(&data))
+		if (get_path(&data, envp) && check_valid_cmds(&data))
 		{
 			data.file_open = argv[1];
 			data.file_exit = argv[argc - 1];

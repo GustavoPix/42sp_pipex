@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 20:21:58 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/01 20:59:10 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 {
 	char		*file_open;
 	char		*file_exit;
+	char		**path;
 	int			**fd;
 	int			qpipes;
 	int			*pid;
@@ -52,6 +53,7 @@ void	close_fds(t_data *data, int max);
 /*=============*/
 void	clear_data(t_data *data);
 void	clear_cmds(t_data *data);
+void	clear_path(t_data *data);
 
 /*=============*/
 /*  checkers   */
