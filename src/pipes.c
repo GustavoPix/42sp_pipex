@@ -6,11 +6,14 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2021/11/30 20:00:13 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:16:14 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
 
 void	pipe_start(t_data *data)
 {
