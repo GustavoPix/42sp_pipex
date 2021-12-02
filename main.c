@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:28:56 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:36:44 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	get_path(t_data	*data, char **envp)
 		}
 		i++;
 	}
-	printf("PATH not found\n");
+	ft_putstr_fd("PATH not found\n", 1);
 	return (0);
 }
 

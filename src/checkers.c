@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:30:09 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:39:33 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	check_valid_cmds(t_data *data)
 	{
 		if (test_and_apply_cmd(data, i) == 0)
 		{
-			printf("Pipe %d: command not found\n", i);
+			ft_putstr_fd(&data->cmds[i].command[1], 1);
+			ft_putstr_fd(": command not found\n", 1);
 			ok = 0;
 		}
 		i++;
@@ -63,17 +64,17 @@ int	check_parans(int argc, char **argv)
 {
 	if (argc != 5)
 	{
-		printf("Pipex works using: pipex file_in cmd cmd file_out\n");
+		ft_putstr_fd("Pipex works using: pipex file_in cmd cmd file_out\n", 1);
 		return (0);
 	}
 	if (access(argv[1], R_OK) < 0)
 	{
-		printf("Failed to read file\n");
+		ft_putstr_fd("Failed to read file\n", 1);
 		return (0);
 	}
 	if (access(argv[argc - 1], W_OK) < 0 && access(argv[argc - 1], F_OK) == 0)
 	{
-		printf("Failed to write file\n");
+		ft_putstr_fd("Failed to write file\n", 1);
 		return (0);
 	}
 	return (1);

@@ -6,11 +6,11 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 19:54:42 by glima-de          #+#    #+#             */
-/*   Updated: 2021/09/04 16:14:30 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:05:05 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

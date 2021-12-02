@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/12/01 19:44:34 by glima-de         ###   ########.fr        #
+#    Updated: 2021/12/02 19:04:51 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,15 @@ SRCS_MANDATORY = ./main.c \
 				 ./src/clear.c \
 				 ./src/checkers.c
 
-GNL = 			 ./gnl/get_next_line.c
+SRCS_LIBFT	=	 ./libft/ft_strjoin.c \
+				 ./libft/ft_strdup.c \
+				 ./libft/ft_putstr_fd.c \
+				 ./libft/ft_split.c \
+				 ./libft/ft_strncmp.c \
+				 ./libft/ft_strlen.c
 
-OBJS 		= ${SRCS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
-
-OBJS_GNL	= ${GNL:.c=.o}
+OBJS_LIBFT	= ${SRCS_LIBFT:.c=.o}
 
 UNAME		:= $(shell uname)
 
@@ -33,19 +36,16 @@ NAME		= pipex
 all: 		${NAME}
 
 .c.o:
-			${CC} -g ${CFLAGS} -I libft -c $< -o ${<:.c=.o}
+			${CC} -g ${CFLAGS} -c $< -o ${<:.c=.o}
 
-$(NAME): 	${OBJS_GNL} $(OBJS) ${OBJS_M}
+$(NAME): 	${OBJS_M} ${OBJS_LIBFT}
 			echo x > ./test/outfile
-			make -C $(PATH_LIBFT)
-			${CC} -g $(CFLAGS) -o $(NAME) $(OBJS) ${OBJS_M} ${OBJS_GNL} -L $(PATH_LIBFT) -lft
+			${CC} -g $(CFLAGS) -o $(NAME) ${OBJS_M} ${OBJS_LIBFT}
 
 clean:
-			make -C $(PATH_LIBFT) clean
-			${RM} ${OBJS} ${OBJS_M} ${OBJS_GNL} ${OBJS_SLG} ${OBJS_GNL}
+			${RM} ${OBJS_M} ${OBJS_LIBFT}
 
 fclean: 	clean
-			make -C $(PATH_LIBFT) fclean
 			${RM} ${NAME}
 
 re: 		fclean all
