@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:36:44 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:35:21 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	set_params(t_data *data, char *argv, int index)
 	free(aux);
 }
 
-static int	get_path(t_data	*data, char **envp)
+static int	get_path(t_data	*data, char *envp[])
 {
 	int	i;
 

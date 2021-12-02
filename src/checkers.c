@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:39:33 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 19:38:19 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	check_valid_cmds(t_data *data)
 	{
 		clear_cmds(data);
 		clear_path(data);
+		exit(127);
 	}
 	return (ok);
 }
