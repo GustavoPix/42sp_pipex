@@ -6,26 +6,29 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/12/02 19:07:15 by glima-de         ###   ########.fr        #
+#    Updated: 2021/12/02 20:12:07 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_MANDATORY = ./main.c \
+SRCS			=./main.c \
 				 ./src/pipes.c \
-				 ./src/clear.c \
-				 ./src/checkers.c
+				 ./src/clear.c
 
-SRCS_LIBFT	=	 ./libft/ft_strjoin.c \
+SRCS_MANDATORY	=./src/checkers.c
+
+SRCS_BONUS		=./src/checkers_bonus.c
+
+SRCS_LIBFT		=./libft/ft_strjoin.c \
 				 ./libft/ft_strdup.c \
 				 ./libft/ft_putstr_fd.c \
 				 ./libft/ft_split.c \
 				 ./libft/ft_strncmp.c \
 				 ./libft/ft_strlen.c
 
+OBJS		= ${SRCS:.c=.o}
 OBJS_M		= ${SRCS_MANDATORY:.c=.o}
+OBJS_B		= ${SRCS_BONUS:.c=.o}
 OBJS_LIBFT	= ${SRCS_LIBFT:.c=.o}
-
-UNAME		:= $(shell uname)
 
 PATH_LIBFT	= libft
 CC 			= clang
@@ -38,16 +41,18 @@ all: 		${NAME}
 .c.o:
 			${CC} -g ${CFLAGS} -c $< -o ${<:.c=.o}
 
-$(NAME): 	${OBJS_M} ${OBJS_LIBFT}
-			echo x > ./test/outfile
-			${CC} -g $(CFLAGS) -o $(NAME) ${OBJS_M} ${OBJS_LIBFT}
+$(NAME): 	${OBJS} ${OBJS_M} ${OBJS_LIBFT}
+			${CC} -g $(CFLAGS) -o $(NAME) ${OBJS} ${OBJS_M} ${OBJS_LIBFT}
 
 clean:
-			${RM} ${OBJS_M} ${OBJS_LIBFT}
+			${RM} ${OBJS} ${OBJS_M} ${OBJS_B} ${OBJS_LIBFT}
 
 fclean: 	clean
 			${RM} ${NAME}
 
 re: 		fclean all
 
-.PHONY:		all clean fclean re test val
+bonus:		${OBJS} ${OBJS_B} ${OBJS_LIBFT}
+			${CC} -g $(CFLAGS) -o $(NAME) ${OBJS} ${OBJS_B} ${OBJS_LIBFT}
+
+.PHONY:		all clean fclean re bonus
