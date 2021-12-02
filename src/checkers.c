@@ -6,13 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/01 20:58:55 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:30:09 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	test_and_apply_cmd(t_data *data, int index)
+static int	test_and_apply_cmd(t_data *data, int index)
 {
 	int		i;
 	int		finded;
@@ -20,9 +20,9 @@ int	test_and_apply_cmd(t_data *data, int index)
 
 	i = 0;
 	finded = 0;
-	while(data->path[i] && !finded)
+	while (data->path[i] && !finded)
 	{
-		aux = ft_strjoin(data->path[i],data->cmds[index].command);
+		aux = ft_strjoin(data->path[i], data->cmds[index].command);
 		if (access(aux, F_OK) == 0)
 		{
 			finded = 1;

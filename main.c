@@ -6,42 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/01 20:57:44 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:28:56 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./pipex.h"
 
-int	create_pipes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	data->fd = malloc(sizeof(int *) * data->qpipes);
-	while (i < data->qpipes)
-	{
-		data->fd[i] = malloc(sizeof(int) * 2);
-		if (pipe(data->fd[i]) < 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	close_pipes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	close_fds(data, data->qpipes - 1);
-	while (i < data->qpipes)
-	{
-		waitpid(data->pid[i], NULL, 0);
-		i++;
-	}
-}
-
-int	control(t_data *data)
+static int	control(t_data *data)
 {
 	int	i;
 
@@ -68,7 +39,7 @@ int	control(t_data *data)
 	return (0);
 }
 
-void	set_params(t_data *data, char *argv, int index)
+static void	set_params(t_data *data, char *argv, int index)
 {
 	char	**aux;
 	int		args;
@@ -77,7 +48,7 @@ void	set_params(t_data *data, char *argv, int index)
 	aux = ft_split(argv, ' ');
 	while (aux[args])
 		args++;
-	data->cmds[index].command = ft_strjoin("/",aux[0]);
+	data->cmds[index].command = ft_strjoin("/", aux[0]);
 	data->cmds[index].parans = malloc((args + 1) * sizeof(char *));
 	args = 1;
 	while (aux[args])
@@ -92,16 +63,16 @@ void	set_params(t_data *data, char *argv, int index)
 	free(aux);
 }
 
-int	get_path(t_data	*data, char **envp)
+static int	get_path(t_data	*data, char **envp)
 {
 	int	i;
 
 	i = 0;
 	while (envp[i])
 	{
-		if(ft_strncmp(envp[i],"PATH=",5) == 0)
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			data->path = ft_split(&envp[i][5],':');
+			data->path = ft_split(&envp[i][5], ':');
 			return (1);
 		}
 		i++;

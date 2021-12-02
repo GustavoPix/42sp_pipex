@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 20:00:38 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/01 20:59:02 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:28:01 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	clear_path(t_data *data)
 	int	i;
 
 	i = 0;
-	while(data->path[i])
+	while (data->path[i])
 	{
 		free(data->path[i]);
 		i++;
@@ -64,4 +64,17 @@ void	clear_data(t_data *data)
 	clear_path(data);
 	free(data->fd);
 	free(data->pid);
+}
+
+void	close_pipes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	close_fds(data, data->qpipes - 1);
+	while (i < data->qpipes)
+	{
+		waitpid(data->pid[i], NULL, 0);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/01 20:59:10 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:29:42 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	pipe_start(t_data *data);
 void	pipe_middle(t_data *data, int i);
 void	pipe_end(t_data *data);
 void	close_fds(t_data *data, int max);
+int		create_pipes(t_data *data);
 
 /*=============*/
 /*  clear      */
@@ -54,6 +55,7 @@ void	close_fds(t_data *data, int max);
 void	clear_data(t_data *data);
 void	clear_cmds(t_data *data);
 void	clear_path(t_data *data);
+void	close_pipes(t_data *data);
 
 /*=============*/
 /*  checkers   */

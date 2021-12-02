@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:16:14 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/02 18:27:56 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,20 @@ void	close_fds(t_data *data, int max)
 		close(data->fd[i][1]);
 		i++;
 	}
+}
+
+int	create_pipes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->fd = malloc(sizeof(int *) * data->qpipes);
+	while (i < data->qpipes)
+	{
+		data->fd[i] = malloc(sizeof(int) * 2);
+		if (pipe(data->fd[i]) < 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }
