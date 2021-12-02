@@ -6,7 +6,7 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/12/02 19:04:51 by glima-de         ###   ########.fr        #
+#    Updated: 2021/12/02 19:07:15 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,5 @@ fclean: 	clean
 			${RM} ${NAME}
 
 re: 		fclean all
-
-test:		all
-			./so_long ./maps/pdf2.ber
-
-val:		all
-			valgrind --leak-check=full ./so_long ./maps/test_leak.ber
 
 .PHONY:		all clean fclean re test val
