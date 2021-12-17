@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 19:35:21 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/16 22:29:38 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	main(int argc, char **argv, char **envp)
 	int		i;
 
 	i = 0;
+	data.status = 0;
 	if (check_parans(argc, argv) == 1)
 	{
 		data.qpipes = argc - 3;
@@ -104,5 +105,5 @@ int	main(int argc, char **argv, char **envp)
 			control(&data);
 		}
 	}
-	return (0);
+	return (data.status);
 }

@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 20:00:38 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:28:01 by glima-de         ###   ########.fr       */
+/*   Updated: 2021/12/16 22:29:25 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	close_pipes(t_data *data)
 	close_fds(data, data->qpipes - 1);
 	while (i < data->qpipes)
 	{
-		waitpid(data->pid[i], NULL, 0);
+		waitpid(data->pid[i], &data->status, 0);
 		i++;
 	}
 }
