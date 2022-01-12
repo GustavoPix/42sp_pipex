@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:16:06 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 20:48:24 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ static void	set_params(t_data *data, char *argv, int index)
 	int		args;
 
 	args = 0;
+	swap_char_quote(argv, ' ', 1);
 	aux = ft_split(argv, ' ');
 	while (aux[args])
+	{
+		swap_char_quote(aux[args], 1, ' ');
+		remove_quote(aux[args]);
 		args++;
+	}
 	data->cmds[index].command = ft_strjoin("/", aux[0]);
 	data->cmds[index].parans = malloc((args + 1) * sizeof(char *));
 	args = 1;

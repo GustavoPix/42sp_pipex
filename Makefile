@@ -6,12 +6,13 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2021/12/02 20:12:07 by glima-de         ###   ########.fr        #
+#    Updated: 2022/01/12 20:10:59 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=./main.c \
 				 ./src/pipes.c \
+				 ./src/treatments.c \
 				 ./src/clear.c
 
 SRCS_MANDATORY	=./src/checkers.c

@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:26:58 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 20:38:07 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ void			clear_path(t_data *data);
 int				check_parans(int argc, char **argv);
 int				check_valid_cmds(t_data *data);
 int				check_read_file(const char *path);
+
+/*=============*/
+/*  treatments */
+/*=============*/
+void			swap_char_quote(char *str, int from, int to);
+void			remove_quote(char *str);
 
 /*=============*/
 /*  libft      */
