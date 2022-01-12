@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:26:49 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:31:01 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	pipe_end(t_data *data)
 		close_fd(data, data->qpipes - 2, data->qpipes - 1);
 		close(fdfile);
 		data->cmds[data->qpipes - 1].parans[0] = "";
-		if (execve(data->cmds[pipe].command, data->cmds[pipe].parans, envvec) == -1)
+		if (execve(data->cmds[pipe].command,
+				data->cmds[pipe].parans, envvec) == -1)
 			perror("Pipe end error");
 	}
 }

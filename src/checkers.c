@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 18:32:30 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:31:20 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,6 @@ int	check_parans(int argc, char **argv)
 	{
 		ft_putstr_fd("Pipex works using: pipex file_in cmd cmd file_out\n", 1);
 		return (0);
-	}
-	if (access(argv[argc - 1], W_OK) < 0 && access(argv[argc - 1], F_OK) == 0)
-	{
-		//ft_putstr_fd("Failed to write file\n", 1);
-		//return (0);
 	}
 	return (1);
 }
