@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/16 22:20:43 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:06:08 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			pipe_middle(t_data *data, int i);
 void			pipe_end(t_data *data);
 void			close_fds(t_data *data, int max);
 int				create_pipes(t_data *data);
+void	close_fd(t_data *data, int fdin, int fdout);
 
 /*=============*/
 /*  clear      */
@@ -61,6 +62,7 @@ void			close_pipes(t_data *data);
 /*=============*/
 int				check_parans(int argc, char **argv);
 int				check_valid_cmds(t_data *data);
+int				check_read_file(const char *path);
 
 /*=============*/
 /*  libft      */

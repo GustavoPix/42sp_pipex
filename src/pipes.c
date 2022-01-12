@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 18:33:02 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:16:25 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,29 @@
 void	pipe_start(t_data *data)
 {
 	int		fdfile;
+	int		prfile;
 	char	*envvec[1];
 
-	envvec[0] = NULL;
-	fdfile = open(data->file_open, O_RDONLY);
-	dup2(fdfile, STDIN_FILENO);
-	close(fdfile);
-	dup2(data->fd[1][1], STDOUT_FILENO);
-	close(data->fd[0][1]);
-	close(data->fd[data->qpipes - 1][0]);
-	if (execve(data->cmds[0].command, data->cmds[0].parans, envvec) == -1)
-		perror("Pipe start error");
+	prfile = check_read_file(data->file_open);
+	if (prfile < 0)
+	{
+		ft_putstr_fd(data->file_open, 1);
+		if (prfile == -2)
+			ft_putstr_fd(": No such file or directory\n", 1);
+		else
+			ft_putstr_fd(": Permission denied\n", 1);
+	}
+	else
+	{
+		envvec[0] = NULL;
+		fdfile = open(data->file_open, O_RDONLY);
+		dup2(fdfile, STDIN_FILENO);
+		close(fdfile);
+		dup2(data->fd[1][1], STDOUT_FILENO);
+		close_fd(data, data->qpipes - 1, 0);
+		if (execve(data->cmds[0].command, data->cmds[0].parans, envvec) == -1)
+			perror("Pipe start error");
+	}
 }
 
 void	pipe_middle(t_data *data, int i)
@@ -47,16 +59,32 @@ void	pipe_end(t_data *data)
 	int		pipe;
 	char	*envvec[1];
 
-	pipe = data->qpipes - 1;
-	envvec[0] = NULL;
-	fdfile = open(data->file_exit, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	dup2(data->fd[data->qpipes - 1][0], STDIN_FILENO);
-	dup2(fdfile, STDOUT_FILENO);
-	close_fds(data, data->qpipes - 1);
-	close(fdfile);
-	data->cmds[data->qpipes - 1].parans[0] = "";
-	if (execve(data->cmds[pipe].command, data->cmds[pipe].parans, envvec) == -1)
-		perror("Pipe end error");
+	if (access(data->file_exit, W_OK) < 0 && access(data->file_exit, F_OK) == 0)
+	{
+		ft_putstr_fd(data->file_exit, 1);
+		ft_putstr_fd(": Permission denied\n", 1);
+	}
+	else
+	{
+		pipe = data->qpipes - 1;
+		envvec[0] = NULL;
+		fdfile = open(data->file_exit, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+		dup2(data->fd[data->qpipes - 1][0], STDIN_FILENO);
+		dup2(fdfile, STDOUT_FILENO);
+		close(data->fd[0][0]);
+		close(data->fd[1][1]);
+		close_fd(data, data->qpipes - 2, data->qpipes - 1);
+		close(fdfile);
+		data->cmds[data->qpipes - 1].parans[0] = "";
+		if (execve(data->cmds[pipe].command, data->cmds[pipe].parans, envvec) == -1)
+			perror("Pipe end error");
+	}
+}
+
+void	close_fd(t_data *data, int fdin, int fdout)
+{
+	close(data->fd[fdin][0]);
+	close(data->fd[fdout][1]);
 }
 
 void	close_fds(t_data *data, int max)

@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/10 19:08:04 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:16:06 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ static int	control(t_data *data)
 				pipe_middle(data, i);
 			else
 				pipe_end(data);
+			exit (data->status);
 		}
+		close(data->fd[i][1]);
+		waitpid(data->pid[i], &data->status, 0);
 		i++;
 	}
-	close_pipes(data);
 	clear_data(data);
 	return (0);
 }
