@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:16:25 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:26:49 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	pipe_middle(t_data *data, int i)
 	envvec[0] = NULL;
 	dup2(data->fd[i][0], STDIN_FILENO);
 	dup2(data->fd[i + 1][1], STDOUT_FILENO);
-	close_fds(data, i);
+	close_fd(data, i - 1, i);
 	data->cmds[i].parans[0] = "";
 	if (execve(data->cmds[i].command, data->cmds[i].parans, envvec) == -1)
 		perror("Pipe middle error");
@@ -85,19 +85,6 @@ void	close_fd(t_data *data, int fdin, int fdout)
 {
 	close(data->fd[fdin][0]);
 	close(data->fd[fdout][1]);
-}
-
-void	close_fds(t_data *data, int max)
-{
-	int	i;
-
-	i = 0;
-	while (i <= max)
-	{
-		close(data->fd[i][0]);
-		close(data->fd[i][1]);
-		i++;
-	}
 }
 
 int	create_pipes(t_data *data)

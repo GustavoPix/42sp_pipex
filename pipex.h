@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:06:08 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/12 19:26:58 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ typedef struct s_data
 void			pipe_start(t_data *data);
 void			pipe_middle(t_data *data, int i);
 void			pipe_end(t_data *data);
-void			close_fds(t_data *data, int max);
 int				create_pipes(t_data *data);
-void	close_fd(t_data *data, int fdin, int fdout);
+void			close_fd(t_data *data, int fdin, int fdout);
 
 /*=============*/
 /*  clear      */
@@ -55,7 +54,6 @@ void	close_fd(t_data *data, int fdin, int fdout);
 void			clear_data(t_data *data);
 void			clear_cmds(t_data *data);
 void			clear_path(t_data *data);
-void			close_pipes(t_data *data);
 
 /*=============*/
 /*  checkers   */
