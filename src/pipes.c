@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:59:57 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/13 20:18:37 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	pipe_start(t_data *data)
 	{
 		ft_putstr_fd(data->file_open, 1);
 		if (prfile == -2)
+		{
 			ft_putstr_fd(": No such file or directory\n", 1);
+		}
 		else
 			ft_putstr_fd(": Permission denied\n", 1);
 	}
@@ -59,7 +61,7 @@ void	pipe_end(t_data *data)
 	int		pipe;
 	char	*envvec[1];
 
-	if (access(data->file_exit, W_OK) < 0 && access(data->file_exit, F_OK) == 0)
+	if (check_write_file(data->file_exit) == 0)
 	{
 		ft_putstr_fd(data->file_exit, 1);
 		ft_putstr_fd(": Permission denied\n", 1);

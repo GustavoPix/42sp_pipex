@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 20:48:24 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/13 20:28:12 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,41 @@
 static int	control(t_data *data)
 {
 	int	i;
+	int	cmd;
 
 	i = 0;
 	create_pipes(data);
 	while (i < data->qpipes)
 	{
+		cmd = test_and_apply_cmd(data, i);
 		data->pid[i] = fork();
 		if (data->pid[i] < 0)
 			return (0);
 		if (data->pid[i] == 0)
 		{
-			if (i == 0)
-				pipe_start(data);
-			else if (i < data->qpipes - 1)
-				pipe_middle(data, i);
+			if (cmd == 0)
+			{
+				ft_putstr_fd(&data->cmds[i].command[1], 1);
+				ft_putstr_fd(": command not found\n", 1);
+				data->status = 127;
+			}
 			else
-				pipe_end(data);
+			{
+				if (i == 0)
+					pipe_start(data);
+				else if (i < data->qpipes - 1)
+					pipe_middle(data, i);
+				else
+					pipe_end(data);
+			}
+			clear_data(data);
 			exit (data->status);
 		}
 		close(data->fd[i][1]);
-		waitpid(data->pid[i], &data->status, 0);
+		waitpid(data->pid[i], NULL, 0);
 		i++;
 	}
-	clear_data(data);
-	return (0);
+	return (data->status);
 }
 
 static void	set_params(t_data *data, char *argv, int index)
@@ -104,12 +115,16 @@ int	main(int argc, char **argv, char **envp)
 			set_params(&data, argv[i + 2], i);
 			i++;
 		}
-		if (get_path(&data, envp) && check_valid_cmds(&data))
+		if (get_path(&data, envp) /*&& check_valid_cmds(&data)*/)
 		{
 			data.file_open = argv[1];
 			data.file_exit = argv[argc - 1];
 			data.pid = (int *)malloc(data.qpipes * sizeof(int));
+
 			control(&data);
+			if (check_read_file(data.file_open) == -2 || check_write_file(data.file_exit) == 0)
+				data.status = 1;
+			clear_data(&data);
 		}
 	}
 	return (data.status);

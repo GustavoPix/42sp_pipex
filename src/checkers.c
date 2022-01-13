@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:31:20 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:42:10 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_null_parans(int argc, char **argv)
 	return (1);
 }
 
-static int	test_and_apply_cmd(t_data *data, int index)
+int	test_and_apply_cmd(t_data *data, int index)
 {
 	int		i;
 	int		finded;
@@ -59,6 +59,10 @@ static int	test_and_apply_cmd(t_data *data, int index)
 		free(aux);
 		i++;
 	}
+	if (!finded)
+		data->status = 127;
+	else
+		data->status = 0;
 	return (finded);
 }
 
@@ -95,6 +99,13 @@ int	check_read_file(const char *path)
 	if (access(path, R_OK) < 0)
 		return (-1);
 	return (0);
+}
+
+int check_write_file(const char *path)
+{
+	if (access(path, W_OK) < 0 && access(path, F_OK) == 0)
+		return (0);
+	return (1);
 }
 
 int	check_parans(int argc, char **argv)

@@ -6,13 +6,13 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2021/12/02 20:14:32 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:37:13 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-static int	test_and_apply_cmd(t_data *data, int index)
+int	test_and_apply_cmd(t_data *data, int index)
 {
 	int		i;
 	int		finded;
