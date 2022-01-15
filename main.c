@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 13:08:44 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/13 20:58:12 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:17:42 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,9 @@ static int	control(t_data *data)
 		if (data->pid[i] == 0)
 		{
 			if (cmd == 0)
-			{
-				ft_putstr_fd(&data->cmds[i].command[1], 1);
-				ft_putstr_fd(": command not found\n", 1);
-				data->status = 127;
-			}
+				errcmd_ext_code(data, &data->cmds[i].command[1]);
 			else
-			{
-				if (i == 0)
-					pipe_start(data);
-				else if (i < data->qpipes - 1)
-					pipe_middle(data, i);
-				else
-					pipe_end(data);
-			}
+				pipe_choose(data, i);
 			clear_data(data);
 			exit (data->status);
 		}
@@ -115,21 +104,13 @@ int	main(int argc, char **argv, char **envp)
 			set_params(&data, argv[i + 2], i);
 			i++;
 		}
-		if (get_path(&data, envp) /*&& check_valid_cmds(&data)*/)
+		if (get_path(&data, envp))
 		{
 			data.file_open = argv[1];
 			data.file_exit = argv[argc - 1];
 			data.pid = (int *)malloc(data.qpipes * sizeof(int));
-
 			control(&data);
-			if (check_read_file(data.file_open) == -2 || check_write_file(data.file_exit) == 0)
-				data.status = 1;
-			if (access(data.file_exit, F_OK) < 0)
-			{
-				int fd = open(data.file_exit, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-				ft_putstr_fd("",fd);
-				close(fd);
-			}
+			exit_code_file(&data);
 			clear_data(&data);
 		}
 	}

@@ -6,11 +6,21 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/13 20:54:31 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:17:05 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+void	pipe_choose(t_data *data, int index)
+{
+	if (index == 0)
+		pipe_start(data);
+	else if (index < data->qpipes - 1)
+		pipe_middle(data, index);
+	else
+		pipe_end(data);
+}
 
 void	pipe_start(t_data *data)
 {

@@ -6,13 +6,14 @@
 #    By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/07 13:01:21 by glima-de          #+#    #+#              #
-#    Updated: 2022/01/13 20:37:14 by glima-de         ###   ########.fr        #
+#    Updated: 2022/01/15 10:13:13 by glima-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS			=./main.c \
 				 ./src/pipes.c \
 				 ./src/treatments.c \
+				 ./src/exit_code.c \
 				 ./src/clear.c
 
 SRCS_MANDATORY	=./src/checkers.c
@@ -24,6 +25,7 @@ SRCS_LIBFT		=./libft/ft_strjoin.c \
 				 ./libft/ft_putstr_fd.c \
 				 ./libft/ft_split.c \
 				 ./libft/ft_strncmp.c \
+				 ./libft/ft_memmove.c \
 				 ./libft/ft_strlen.c
 
 OBJS		= ${SRCS:.c=.o}

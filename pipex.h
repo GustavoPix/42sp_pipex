@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/13 20:37:23 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:17:23 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void			pipe_middle(t_data *data, int i);
 void			pipe_end(t_data *data);
 int				create_pipes(t_data *data);
 void			close_fd(t_data *data, int fdin, int fdout);
+void			pipe_choose(t_data *data, int index);
 
 /*=============*/
 /*  clear      */
@@ -71,6 +72,12 @@ void			swap_char_quote(char *str, int from, int to);
 void			remove_quote(char *str);
 
 /*=============*/
+/*  exit_code  */
+/*=============*/
+void			exit_code_file(t_data *data);
+void			errcmd_ext_code(t_data *data, char *cmd);
+
+/*=============*/
 /*  libft      */
 /*=============*/
 char			*ft_strjoin(char const *s1, char const *s2);
@@ -79,5 +86,6 @@ void			ft_putstr_fd(char *s, int fd);
 char			**ft_split(char const *s, char c);
 int				ft_strncmp(const char *str1, const char *str2, size_t n);
 unsigned int	ft_strlen(const char *str);
+void			*ft_memmove(void *destination, const void *source, size_t num);
 
 #endif
