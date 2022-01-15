@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/15 10:21:33 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:34:21 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void			close_fd(t_data *data, int fdin, int fdout);
 int				check_parans(int argc, char **argv);
 int				check_valid_cmds(t_data *data);
 int				check_read_file(const char *path);
-int				test_and_apply_cmd(t_data *data, int index);
 int				check_write_file(const char *path);
 
 /*=============*/
@@ -70,6 +69,7 @@ int				check_write_file(const char *path);
 /*=============*/
 void			swap_char_quote(char *str, int from, int to);
 void			remove_quote(char *str);
+int				test_and_apply_cmd(t_data *data, int index);
 
 /*=============*/
 /*  exit_code  */
