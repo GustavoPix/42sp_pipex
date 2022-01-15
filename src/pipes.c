@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/15 10:21:50 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 11:15:19 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	pipe_choose(t_data *data, int index)
 {
 	if (index == 0)
 		pipe_start(data);
-	else if (index < data->qpipes - 1)
-		pipe_middle(data, index);
 	else
 		pipe_end(data);
 }
@@ -64,19 +62,6 @@ void	pipe_start(t_data *data)
 		if (execve(data->cmds[0].command, data->cmds[0].parans, envvec) == -1)
 			perror("Pipe start error");
 	}
-}
-
-void	pipe_middle(t_data *data, int i)
-{
-	char	*envvec[1];
-
-	envvec[0] = NULL;
-	dup2(data->fd[i][0], STDIN_FILENO);
-	dup2(data->fd[i + 1][1], STDOUT_FILENO);
-	close_fd(data, i - 1, i);
-	data->cmds[i].parans[0] = "";
-	if (execve(data->cmds[i].command, data->cmds[i].parans, envvec) == -1)
-		perror("Pipe middle error");
 }
 
 void	pipe_end(t_data *data)

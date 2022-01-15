@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:44:14 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/15 10:34:21 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 11:17:02 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_data
 /*  pipes      */
 /*=============*/
 void			pipe_start(t_data *data);
-void			pipe_middle(t_data *data, int i);
 void			pipe_end(t_data *data);
 int				create_pipes(t_data *data);
 void			pipe_choose(t_data *data, int index);
