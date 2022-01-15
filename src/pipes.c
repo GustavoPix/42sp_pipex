@@ -6,11 +6,27 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 11:37:29 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/15 10:17:05 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:21:50 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+int	create_pipes(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->fd = malloc(sizeof(int *) * data->qpipes);
+	while (i < data->qpipes)
+	{
+		data->fd[i] = malloc(sizeof(int) * 2);
+		if (pipe(data->fd[i]) < 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	pipe_choose(t_data *data, int index)
 {
@@ -33,9 +49,7 @@ void	pipe_start(t_data *data)
 	{
 		ft_putstr_fd(data->file_open, 1);
 		if (prfile == -2)
-		{
 			ft_putstr_fd(": No such file or directory\n", 1);
-		}
 		else
 			ft_putstr_fd(": Permission denied\n", 1);
 	}
@@ -92,26 +106,4 @@ void	pipe_end(t_data *data)
 				data->cmds[pipe].parans, envvec) == -1)
 			perror("Pipe end error");
 	}
-}
-
-void	close_fd(t_data *data, int fdin, int fdout)
-{
-	close(data->fd[fdin][0]);
-	close(data->fd[fdout][1]);
-}
-
-int	create_pipes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	data->fd = malloc(sizeof(int *) * data->qpipes);
-	while (i < data->qpipes)
-	{
-		data->fd[i] = malloc(sizeof(int) * 2);
-		if (pipe(data->fd[i]) < 0)
-			return (0);
-		i++;
-	}
-	return (1);
 }

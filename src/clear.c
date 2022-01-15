@@ -6,7 +6,7 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 20:00:38 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/12 19:25:04 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:21:24 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,10 @@ void	clear_data(t_data *data)
 	clear_path(data);
 	free(data->fd);
 	free(data->pid);
+}
+
+void	close_fd(t_data *data, int fdin, int fdout)
+{
+	close(data->fd[fdin][0]);
+	close(data->fd[fdout][1]);
 }
