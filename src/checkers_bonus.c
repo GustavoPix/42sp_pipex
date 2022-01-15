@@ -6,33 +6,37 @@
 /*   By: glima-de <glima-de@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 19:47:25 by glima-de          #+#    #+#             */
-/*   Updated: 2022/01/13 18:37:13 by glima-de         ###   ########.fr       */
+/*   Updated: 2022/01/15 10:48:57 by glima-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	test_and_apply_cmd(t_data *data, int index)
+static int	check_null_parans(int argc, char **argv)
 {
-	int		i;
-	int		finded;
-	char	*aux;
+	int	i;
+	int	j;
+	int	pass;
 
 	i = 0;
-	finded = 0;
-	while (data->path[i] && !finded)
+	while (i < argc)
 	{
-		aux = ft_strjoin(data->path[i], data->cmds[index].command);
-		if (access(aux, F_OK) == 0)
+		j = 0;
+		pass = 0;
+		while (argv[i][j] != '\0')
 		{
-			finded = 1;
-			free(data->cmds[index].command);
-			data->cmds[index].command = ft_strdup(aux);
+			if (argv[i][j] != ' ')
+			{
+				pass = 1;
+				break ;
+			}
+			j++;
 		}
-		free(aux);
+		if (!pass)
+			return (0);
 		i++;
 	}
-	return (finded);
+	return (1);
 }
 
 int	check_valid_cmds(t_data *data)
@@ -61,21 +65,32 @@ int	check_valid_cmds(t_data *data)
 	return (ok);
 }
 
+int	check_read_file(const char *path)
+{
+	if (access(path, F_OK) < 0)
+		return (-2);
+	if (access(path, R_OK) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_write_file(const char *path)
+{
+	if (access(path, W_OK) < 0 && access(path, F_OK) == 0)
+		return (0);
+	return (1);
+}
+
 int	check_parans(int argc, char **argv)
 {
+	if (!check_null_parans(argc, argv))
+	{
+		ft_putstr_fd("One argument is null\n", 1);
+		return (0);
+	}
 	if (argc < 5)
 	{
 		ft_putstr_fd("Pipex works using: pipex file_in cmd... file_out\n", 1);
-		return (0);
-	}
-	if (access(argv[1], R_OK) < 0)
-	{
-		ft_putstr_fd("Failed to read file\n", 1);
-		return (0);
-	}
-	if (access(argv[argc - 1], W_OK) < 0 && access(argv[argc - 1], F_OK) == 0)
-	{
-		ft_putstr_fd("Failed to write file\n", 1);
 		return (0);
 	}
 	return (1);
